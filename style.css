@@ -7,11 +7,13 @@ body {
     text-align: center;
     font-family: Arial, sans-serif;
     margin: 0;
+    background-color: #f8f9fa; /* Легкий серый фон для лучшего контраста */
 }
 
 h1 {
     font-size: 36px;
     margin-bottom: 10px;
+    color: #333; /* Темный цвет для заголовка */
 }
 
 p {
@@ -20,25 +22,38 @@ p {
     line-height: 1.6; /* Улучшенное межстрочное расстояние */
     margin-bottom: 20px;
     white-space: pre-line; /* Позволяет разбивать текст на строки */
+    color: #555; /* Серый цвет для текста */
 }
 
 img {
     max-width: 50%; /* Сделает фото меньше (можно регулировать) */
     height: auto; /* Сохранит пропорции */
     margin-bottom: 20px; /* Добавит отступ под фото */
+    border-radius: 10px; /* Немного закруглит края фото */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Легкая тень для фото */
 }
 
 .button {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 12px 24px;
     margin: 10px;
     font-size: 18px;
     text-decoration: none;
     color: white;
     background-color: #007bff;
     border-radius: 5px;
+    transition: all 0.3s ease; /* Плавный переход эффектов */
+    border: none;
+    cursor: pointer;
 }
 
 .button:hover {
     background-color: #0056b3;
+    transform: scale(1.1); /* Увеличение кнопки */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Добавление тени */
+}
+
+.button:active {
+    transform: scale(1.05); /* Небольшое уменьшение при клике */
+    background-color: #004080;
 }
