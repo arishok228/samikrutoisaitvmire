@@ -1,7 +1,6 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,19 +44,12 @@
             position: relative;
         }
 
-        /* Анимация при наведении */
         .button:hover {
             background-color: #0056b3;
             transform: scale(1.1);
         }
-
-        /* Анимация при клике */
-        .button:active {
-            transform: scale(0.95);
-        }
     </style>
 </head>
-
 <body>
     <h1>ВСЕМ МЯУ!!</h1>
     <p>Данный сайт создан с целью познакомить вас с самой умной в мире кошкой Беллой.
@@ -68,16 +60,15 @@
 
     <script>
         function delayedRedirect(event, url) {
-            event.preventDefault(); // Остановить переход по ссылке сразу
+            event.preventDefault();
             const button = event.currentTarget;
-            button.style.backgroundColor = '#003d80';
-            button.style.transform = 'scale(0.95)';
-
+            button.style.transition = 'all 0.5s ease';
+            button.style.transform = 'scale(0.5)';
+            button.style.opacity = '0';
             setTimeout(() => {
                 window.location.href = url;
-            }, 1000); // Задержка 1 секунда
+            }, 600);
         }
     </script>
 </body>
-
 </html>
