@@ -1,12 +1,55 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная страница</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 22px;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            white-space: pre-line;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 18px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
+
 <body>
     <h1>ВСЕМ МЯУ!!</h1>
     <p>Данный сайт создан с целью познакомить вас с самой умной в мире кошкой Беллой.
@@ -15,4 +58,5 @@
     <a href="page2.html" class="button">Перейти на вторую страницу</a>
     <a href="page3.html" class="button">Перейти на третью страницу</a>
 </body>
+
 </html>
