@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -11,17 +12,24 @@
     <p>Данный сайт создан с целью познакомить вас с самой умной в мире кошкой Беллой.
         Белле уже 10 лет и она развила все сложнейшие навыки на высочайшем уровне.
         На последующих страницах вы сможете понаблюдать некоторые из них.</p>
-    <a href="page2.html" class="button" onclick="morphRedirect(event, 'page2.html')">Перейти на вторую страницу</a>
-    <a href="page3.html" class="button" onclick="morphRedirect(event, 'page3.html')">Перейти на третью страницу</a>
 
+    <!-- Вот сюда вставляем новые кнопки -->
+    <a href="page2.html" class="button" onclick="showMorph(event, 'page2.html')">
+        <span>Перейти на вторую страницу</span>
+    </a>
+    <a href="page3.html" class="button" onclick="showMorph(event, 'page3.html')">
+        <span>Перейти на третью страницу</span>
+    </a>
+
+    <!-- JS ставим перед закрывающим тегом </body> -->
     <script>
-        function morphRedirect(event, url) {
+        function showMorph(event, url) {
             event.preventDefault();
             const button = event.currentTarget;
             button.classList.add('morph');
             setTimeout(() => {
                 window.location.href = url;
-            }, 1300);
+            }, 1000);
         }
     </script>
 </body>
