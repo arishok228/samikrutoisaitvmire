@@ -15,18 +15,24 @@ h1 {
 }
 
 p {
-    font-size: 20px; /* Увеличенный размер шрифта */
+    font-size: 22px; /* Увеличенный размер шрифта */
     max-width: 600px; /* Ограничение ширины текста */
-    line-height: 1.5; /* Улучшенное межстрочное расстояние */
+    line-height: 1.6; /* Улучшенное межстрочное расстояние */
     margin-bottom: 20px;
     white-space: pre-line; /* Позволяет разбивать текст на строки */
+}
+
+img {
+    max-width: 50%; /* Сделает фото меньше (можно регулировать) */
+    height: auto; /* Сохранит пропорции */
+    margin-bottom: 20px; /* Добавит отступ под фото */
 }
 
 .button {
     display: inline-block;
     padding: 10px 20px;
     margin: 10px;
-    font-size: 16px;
+    font-size: 18px;
     text-decoration: none;
     color: white;
     background-color: #007bff;
