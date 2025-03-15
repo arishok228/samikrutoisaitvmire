@@ -42,36 +42,48 @@ img {
     color: white;
     background-color: #007bff;
     border-radius: 5px;
-    transition: all 0.6s ease;
-    border: none;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
     cursor: pointer;
 }
 
 .button:hover {
     background-color: #0056b3;
-    transform: scale(1.1);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
 }
 
-.morph {
-    width: 80px;
-    height: 80px;
-    padding: 0;
-    background-color: #333;
-    color: transparent;
+.button.morph::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    background: #333;
+    transform: translate(-50%, -50%) scale(0);
     clip-path: polygon(
         50% 0%, 
-        61% 5%, 
-        75% 0%, 
-        85% 15%, 
-        95% 40%, 
-        85% 70%, 
+        65% 10%, 
+        80% 0%, 
+        95% 20%, 
+        100% 50%, 
+        95% 80%, 
         50% 100%, 
-        15% 70%, 
-        5% 40%, 
-        15% 15%, 
-        25% 0%, 
-        39% 5%
+        5% 80%, 
+        0% 50%, 
+        5% 20%, 
+        20% 0%, 
+        35% 10%
     );
-    transition: all 1s ease;
+    transition: transform 0.5s ease;
+    z-index: 1;
+}
+
+.button.morph span {
+    opacity: 0;
+}
+
+.button.morph::after {
+    transform: translate(-50%, -50%) scale(1);
 }
