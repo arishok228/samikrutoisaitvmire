@@ -41,11 +41,19 @@
             color: white;
             background-color: #007bff;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
+        /* Анимация при наведении */
         .button:hover {
             background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        /* Анимация при клике */
+        .button:active {
+            transform: scale(0.95);
         }
     </style>
 </head>
@@ -55,8 +63,21 @@
     <p>Данный сайт создан с целью познакомить вас с самой умной в мире кошкой Беллой.
         Белле уже 10 лет и она развила все сложнейшие навыки на высочайшем уровне.
         На последующих страницах вы сможете понаблюдать некоторые из них.</p>
-    <a href="page2.html" class="button">Перейти на вторую страницу</a>
-    <a href="page3.html" class="button">Перейти на третью страницу</a>
+    <a href="page2.html" class="button" onclick="delayedRedirect(event, 'page2.html')">Перейти на вторую страницу</a>
+    <a href="page3.html" class="button" onclick="delayedRedirect(event, 'page3.html')">Перейти на третью страницу</a>
+
+    <script>
+        function delayedRedirect(event, url) {
+            event.preventDefault(); // Остановить переход по ссылке сразу
+            const button = event.currentTarget;
+            button.style.backgroundColor = '#003d80';
+            button.style.transform = 'scale(0.95)';
+
+            setTimeout(() => {
+                window.location.href = url;
+            }, 1000); // Задержка 1 секунда
+        }
+    </script>
 </body>
 
 </html>
