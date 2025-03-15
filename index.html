@@ -40,13 +40,22 @@
             color: white;
             background-color: #007bff;
             border-radius: 5px;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             position: relative;
         }
 
         .button:hover {
             background-color: #0056b3;
             transform: scale(1.1);
+        }
+
+        .circle-effect {
+            border-radius: 50% !important;
+            width: 50px !important;
+            height: 50px !important;
+            padding: 0 !important;
+            font-size: 0 !important;
+            opacity: 0;
         }
     </style>
 </head>
@@ -55,16 +64,14 @@
     <p>Данный сайт создан с целью познакомить вас с самой умной в мире кошкой Беллой.
         Белле уже 10 лет и она развила все сложнейшие навыки на высочайшем уровне.
         На последующих страницах вы сможете понаблюдать некоторые из них.</p>
-    <a href="page2.html" class="button" onclick="delayedRedirect(event, 'page2.html')">Перейти на вторую страницу</a>
-    <a href="page3.html" class="button" onclick="delayedRedirect(event, 'page3.html')">Перейти на третью страницу</a>
+    <a href="page2.html" class="button" onclick="circleRedirect(event, 'page2.html')">Перейти на вторую страницу</a>
+    <a href="page3.html" class="button" onclick="circleRedirect(event, 'page3.html')">Перейти на третью страницу</a>
 
     <script>
-        function delayedRedirect(event, url) {
+        function circleRedirect(event, url) {
             event.preventDefault();
             const button = event.currentTarget;
-            button.style.transition = 'all 0.5s ease';
-            button.style.transform = 'scale(0.5)';
-            button.style.opacity = '0';
+            button.classList.add('circle-effect');
             setTimeout(() => {
                 window.location.href = url;
             }, 600);
