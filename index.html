@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная страница</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             display: flex;
@@ -16,7 +17,6 @@
             font-family: Arial, sans-serif;
             margin: 0;
             background-color: #f8f9fa;
-            position: relative;
             overflow: hidden;
         }
 
@@ -40,7 +40,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             white-space: pre-line;
             z-index: 2;
-            position: relative;
+            min-height: 150px;
         }
 
         .button {
@@ -112,83 +112,83 @@
             opacity: 1;
         }
 
-        /* Сердечко */
-        .heart {
-            width: 15px;
-            height: 15px;
-            background-color: #f8c8dc;
+        /* Стили для фона */
+        .background-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .shape {
             position: absolute;
-            transform: rotate(45deg);
-            border-radius: 50% 50% 0 0;
-            opacity: 0.8;
+            width: 20px;
+            height: 20px;
+            opacity: 0.4;
+            transform-origin: center;
         }
 
         .heart::before,
         .heart::after {
             content: "";
-            width: 15px;
-            height: 15px;
-            background-color: #f8c8dc;
             position: absolute;
-            border-radius: 50%;
+            width: 10px;
+            height: 16px;
+            background: #f8c8dc;
+            border-radius: 10px 10px 0 0;
+            top: 0;
+            left: 5px;
         }
 
         .heart::before {
-            top: -7.5px;
-            left: 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
         }
 
         .heart::after {
-            left: -7.5px;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        .star::before {
+            content: "★";
+            position: absolute;
+            color: #f8c8dc;
+            font-size: 20px;
             top: 0;
-        }
-
-        /* Звезда */
-        .star {
-            width: 0;
-            height: 0;
-            position: absolute;
-            opacity: 0.8;
-        }
-
-        .star::before,
-        .star::after {
-            content: "";
-            position: absolute;
             left: 0;
-            top: 0;
-            width: 0;
-            height: 0;
-            border-left: 7px solid transparent;
-            border-right: 7px solid transparent;
-            border-bottom: 14px solid #f8c8dc;
-        }
-
-        .star::after {
-            top: 7px;
-            transform: rotate(180deg);
-        }
-
-        /* Плавное появление/исчезновение */
-        .fade {
-            transition: opacity 1s ease;
         }
     </style>
 </head>
 
 <body>
-    <div id="bg-container" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1;"></div>
-
     <h1>ВСЕМ МЯУ!!</h1>
 
-    <div class="description">
-        Данный сайт создан с целью познакомить вас с самой умной в мире кошкой Беллой. Белле уже 10 лет, ее айкью самый высокий в мире, а именно 1069 и она развила все сложнейшие навыки на высочайшем уровне. На последующих страницах вы сможете понаблюдать некоторые из них.
-    </div>
+    <div class="description" id="typewriter"></div>
 
     <a href="page2.html" class="button" onclick="circleRedirect(event, 'page2.html')">Перейти на вторую страницу</a>
     <a href="page3.html" class="button" onclick="circleRedirect(event, 'page3.html')">Перейти на третью страницу</a>
 
+    <div class="background-shapes" id="background"></div>
+
     <script>
+        // Typewriter эффект
+        const text = "Данный сайт создан с целью познакомить вас с самой умной в мире кошкой Беллой. Белле уже 10 лет, ее айкью самый высокий в мире, а именно 1069 и она развила все сложнейшие навыки на высочайшем уровне. На последующих страницах вы сможете понаблюдать некоторые из них.";
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typewriter").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 40); // скорость набора
+            }
+        }
+        typeWriter();
+
+        // Кнопка с ушками
         function circleRedirect(event, url) {
             event.preventDefault();
             const button = event.currentTarget;
@@ -209,43 +209,34 @@
             }, 1200);
         }
 
-        // Генерация сердечек и звезд
-        const container = document.getElementById('bg-container');
-        const numShapes = 60;
-        let toggle = true;
+        // Фон сердечки/звездочки
+        const background = document.getElementById('background');
+        let shapeType = 'heart';
 
-        function clearContainer() {
-            container.innerHTML = '';
-        }
-
-        function generateShapes(type) {
-            clearContainer();
-            for (let i = 0; i < numShapes; i++) {
+        function generateShapes() {
+            background.innerHTML = '';
+            for (let i = 0; i < 50; i++) {
                 const shape = document.createElement('div');
-                shape.classList.add(type, 'fade');
+                shape.classList.add('shape', shapeType);
 
-                shape.style.top = Math.random() * 95 + '%';
-                shape.style.left = Math.random() * 95 + '%';
+                shape.style.top = Math.random() * 100 + '%';
+                shape.style.left = Math.random() * 100 + '%';
 
-                const scale = 0.4 + Math.random() * 0.6;
-                let rotation = 0;
-                if (Math.random() < 0.25) {
-                    rotation = -20 + Math.random() * 40;
+                // 25% случайных наклонов
+                const random = Math.random();
+                if (random < 0.25) {
+                    const angle = (Math.random() > 0.5 ? -1 : 1) * (Math.random() * 20);
+                    shape.style.transform = `rotate(${angle}deg)`;
                 }
 
-                shape.style.transform = `rotate(${rotation}deg) scale(${scale})`;
-
-                container.appendChild(shape);
+                background.appendChild(shape);
             }
         }
 
-        // Первоначально сердечки
-        generateShapes('heart');
-
-        // Меняем каждые 3 секунды
+        generateShapes();
         setInterval(() => {
-            toggle = !toggle;
-            generateShapes(toggle ? 'heart' : 'star');
+            shapeType = shapeType === 'heart' ? 'star' : 'heart';
+            generateShapes();
         }, 3000);
     </script>
 </body>
