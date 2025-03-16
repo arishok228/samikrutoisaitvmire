@@ -25,12 +25,14 @@ p {
     color: #555;
 }
 
+/* Основной блок с рамкой и текстом */
 .description {
-    padding: 15px;
+    padding: 8px 20px 20px 20px; /* Меньше верхний padding */
     border: 1px solid #f8c8dc; /* Нежно-розовая рамка */
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
 }
 
 img {
