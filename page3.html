@@ -100,13 +100,13 @@
         }
 
         .heart {
-            width: 15px;
-            height: 15px;
+            width: 20px;
+            height: 20px;
             background: #f7c7d6;
             position: absolute;
             transform: translate(-50%, -50%);
             clip-path: polygon(50% 0%, 100% 35%, 82% 100%, 50% 80%, 18% 100%, 0% 35%);
-            animation: fly 1.2s ease forwards;
+            animation: fly 1.8s ease forwards;
         }
 
         @keyframes fly {
@@ -211,16 +211,16 @@
         }
 
         function createHearts(x, y) {
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < 50; i++) {
                 const heart = document.createElement('div');
                 heart.classList.add('heart');
                 heart.style.left = `${x}px`;
                 heart.style.top = `${y}px`;
-                heart.style.setProperty('--x', `${(Math.random() - 0.5) * 300}px`);
-                heart.style.setProperty('--y', `${(Math.random() - 0.5) * 300 - 50}px`);
+                heart.style.setProperty('--x', `${(Math.random() - 0.5) * 500}px`);
+                heart.style.setProperty('--y', `${(Math.random() - 0.5) * 500 - 150}px`);
                 document.body.appendChild(heart);
 
-                setTimeout(() => heart.remove(), 1200);
+                setTimeout(() => heart.remove(), 1800);
             }
         }
 
