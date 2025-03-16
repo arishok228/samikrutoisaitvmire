@@ -130,38 +130,48 @@
             pointer-events: none;
             z-index: 0;
             overflow: hidden;
+            transition: opacity 1s ease;
         }
 
         .shape {
             position: absolute;
             width: 20px;
             height: 20px;
-            opacity: 0.4;
+            opacity: 0.5;
             transform-origin: center;
+        }
+
+        /* Сердечко */
+        .heart {
+            width: 20px;
+            height: 20px;
+            background: #f8c8dc;
+            position: relative;
+            transform: rotate(-45deg);
+            border-radius: 50% 50% 0 0;
         }
 
         .heart::before,
         .heart::after {
             content: "";
             position: absolute;
-            width: 10px;
-            height: 16px;
+            width: 20px;
+            height: 20px;
             background: #f8c8dc;
-            border-radius: 10px 10px 0 0;
-            top: 0;
-            left: 5px;
+            border-radius: 50%;
         }
 
         .heart::before {
-            transform: rotate(-45deg);
-            transform-origin: 0 100%;
+            top: -10px;
+            left: 0;
         }
 
         .heart::after {
-            transform: rotate(45deg);
-            transform-origin: 100% 100%;
+            left: 10px;
+            top: 0;
         }
 
+        /* Звезда */
         .star::before {
             content: "★";
             position: absolute;
@@ -222,6 +232,7 @@
         // Фон сердечки/звездочки
         const background = document.getElementById('background');
         let shapeType = 'heart';
+        let isSwitching = false;
 
         function generateShapes() {
             background.innerHTML = '';
@@ -242,9 +253,18 @@
         }
 
         generateShapes();
+
         setInterval(() => {
-            shapeType = shapeType === 'heart' ? 'star' : 'heart';
-            generateShapes();
+            if (isSwitching) return;
+            isSwitching = true;
+            background.style.opacity = 0;
+
+            setTimeout(() => {
+                shapeType = shapeType === 'heart' ? 'star' : 'heart';
+                generateShapes();
+                background.style.opacity = 1;
+                isSwitching = false;
+            }, 1000);
         }, 3000);
     </script>
 </body>
