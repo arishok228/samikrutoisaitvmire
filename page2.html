@@ -5,91 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вторая страница</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             margin: 0;
             padding: 0;
-            position: relative;
+            background: #f8f9fa;
             overflow-x: hidden;
             font-family: Arial, sans-serif;
-            background: #fafafa;
+            position: relative;
         }
 
         h1 {
             text-align: center;
-            margin-top: 30px;
-        }
-
-        /* Дорога */
-        .road {
-            position: fixed;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: #333;
-            z-index: 1;
-        }
-
-        /* Скейтборд */
-        .skateboard {
-            position: fixed;
-            top: calc(50% - 15px);
-            left: -100px;
-            width: 80px;
-            height: 10px;
-            background: #444;
-            border-radius: 5px;
+            margin: 20px 0;
             z-index: 2;
-            animation: moveSkateboard 8s ease-in-out infinite;
-        }
-
-        .skateboard::before,
-        .skateboard::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            width: 14px;
-            height: 14px;
-            background: #000;
-            border-radius: 50%;
-        }
-
-        .skateboard::before {
-            left: 5px;
-        }
-
-        .skateboard::after {
-            right: 5px;
-        }
-
-        @keyframes moveSkateboard {
-            0% {
-                left: -100px;
-                transform: translateY(0);
-            }
-            25% {
-                transform: translateY(-10px);
-            }
-            50% {
-                left: calc(100% + 100px);
-                transform: translateY(0);
-            }
-            75% {
-                transform: translateY(-8px);
-            }
-            100% {
-                left: -100px;
-                transform: translateY(0);
-            }
-        }
-
-        /* Контент */
-        .content {
             position: relative;
-            z-index: 5;
-            margin-top: 80px;
-            text-align: center;
         }
 
         .small-image {
@@ -100,6 +31,35 @@
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
             cursor: pointer;
             transition: 0.3s ease;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .overlay.active {
+            display: flex;
         }
 
         .description {
@@ -114,6 +74,8 @@
             border-radius: 12px;
             background-color: #fff;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 2;
         }
 
         .button {
@@ -125,8 +87,10 @@
             border: 1px solid #f7c7d6;
             border-radius: 8px;
             transition: 0.3s ease;
-            margin-top: 30px;
+            margin: 30px auto;
             font-size: 20px;
+            position: relative;
+            z-index: 2;
         }
 
         .button:hover {
@@ -136,67 +100,100 @@
             box-shadow: 0 6px 14px rgba(247, 199, 214, 0.4);
         }
 
-        /* Оверлей и картинка в оверлее */
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
+        /* Дорога */
+        .road {
+            position: absolute;
+            bottom: 80px;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
+            width: 100%;
+            height: 10px;
+            background: #555;
+            z-index: 1;
         }
 
-        .overlay.active {
-            display: flex;
+        /* Скейтборд */
+        .skateboard {
+            position: absolute;
+            bottom: 90px;
+            left: -100px;
+            width: 100px;
+            height: 20px;
+            background: #333;
+            border-radius: 5px;
+            transform-origin: center;
         }
 
-        .overlay img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 10px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+        .wheel {
+            position: absolute;
+            bottom: -8px;
+            width: 15px;
+            height: 15px;
+            background: #000;
+            border-radius: 50%;
         }
 
-        @media (max-width: 600px) {
-            .small-image {
-                width: 60%;
-            }
+        .wheel.left {
+            left: 5px;
+        }
 
-            .description {
-                font-size: 18px;
-                padding: 15px 20px;
-            }
+        .wheel.right {
+            right: 5px;
+        }
 
-            .button {
-                padding: 12px 24px;
-                font-size: 18px;
+        @keyframes moveAndJump {
+            0% {
+                left: -100px;
+                bottom: 90px;
+                transform: rotate(0deg);
             }
+            20% {
+                transform: rotate(-10deg);
+            }
+            25% {
+                bottom: 130px;
+                transform: rotate(-5deg);
+            }
+            30% {
+                bottom: 140px;
+                transform: rotate(5deg);
+            }
+            35% {
+                bottom: 120px;
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(0deg);
+            }
+            100% {
+                left: 110%;
+                bottom: 90px;
+                transform: rotate(0deg);
+            }
+        }
+
+        .skateboard.animate {
+            animation: moveAndJump 6s linear infinite;
         }
     </style>
 </head>
 
 <body>
-    <!-- Дорога и скейтборд -->
-    <div class="road"></div>
-    <div class="skateboard"></div>
+    <h1>Вторая страница</h1>
+    <img src="bellasport.jpg" class="small-image" onclick="showOverlay(this.src)">
+    <p class="description">Белла активно следит за здоровьем и занимается спортом. Ее любимый спорт - скейтбординг.
+        Катание на скейте задействует все группы мышц и является отличной силовой и кардиодыхательной тренировкой.
+    </p>
+    <a href="index.html" class="button">Вернуться на главную</a>
 
-    <div class="content">
-        <h1>Вторая страница</h1>
-        <img src="bellasport.jpg" class="small-image" onclick="showOverlay(this.src)">
-        <p class="description">Белла активно следит за здоровьем и занимается спортом. Ее любимый спорт - скейтбординг.
-            Катание на скейте задействует все группы мышц и является отличной силовой и кардиотренировкой,
-            развивает гибкость, баланс и координацию, поэтому Беллочка такая замечательная.
-        </p>
-        <a href="index.html" class="button">Вернуться на главную</a>
-    </div>
-
-    <!-- Оверлей -->
     <div class="overlay" onclick="hideOverlay()">
         <img src="" alt="Preview">
+    </div>
+
+    <!-- Дорога и скейт -->
+    <div class="road"></div>
+    <div class="skateboard animate">
+        <div class="wheel left"></div>
+        <div class="wheel right"></div>
     </div>
 
     <script>
