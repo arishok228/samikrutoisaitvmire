@@ -5,8 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Третья страница</title>
-    <link rel="stylesheet" href="style.css">
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
         .small-image {
             width: 180px;
             height: auto;
@@ -15,6 +28,9 @@
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
             cursor: pointer;
             transition: 0.3s ease;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .overlay {
@@ -75,19 +91,32 @@
             box-shadow: 0 6px 14px rgba(247, 199, 214, 0.4);
         }
 
-        @media (max-width: 600px) {
-            .small-image {
-                width: 60%;
-            }
+        .lightning {
+            position: absolute;
+            width: 4px;
+            background: #f7c7d6;
+            height: 0;
+            top: 0;
+            z-index: 1;
+        }
 
-            .description {
-                font-size: 18px;
-                padding: 15px 20px;
-            }
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center/cover;
+            opacity: 0;
+            z-index: 1;
+        }
 
-            .button {
-                padding: 12px 24px;
-                font-size: 18px;
+        @keyframes fall {
+            to { height: 100vh; }
+        }
+
+        @keyframes explode {
+            to {
+                transform: translate(var(--dx), var(--dy)) scale(0.5);
+                opacity: 0;
             }
         }
     </style>
@@ -96,7 +125,6 @@
 <body>
     <h1>Третья страница</h1>
 
-    <!-- Уменьшенное изображение с кликом -->
     <img src="photo_2025-03-15_19-35-01.jpg" class="small-image" onclick="showOverlay(this.src)">
 
     <p class="description">Беллочка очень умная кошка и дошла до такой ступени эволюции , как человек.
@@ -105,7 +133,6 @@
 
     <a href="index.html" class="button">Вернуться на главную</a>
 
-    <!-- Оверлей -->
     <div class="overlay" onclick="hideOverlay()">
         <img src="" alt="Preview">
     </div>
@@ -121,6 +148,47 @@
             const overlay = document.querySelector('.overlay');
             overlay.classList.remove('active');
         }
+
+        function createLightning() {
+            const lightning = document.createElement('div');
+            lightning.className = 'lightning';
+            lightning.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(lightning);
+
+            lightning.animate([
+                { height: '0' },
+                { height: '100vh' }
+            ], { duration: 500 });
+
+            setTimeout(() => {
+                explodeHearts(parseInt(lightning.style.left));
+                lightning.remove();
+            }, 500);
+        }
+
+        function explodeHearts(x) {
+            for (let i = 0; i < 12; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = `${x - 10 + Math.random() * 20}px`;
+                heart.style.top = 'calc(100vh - 10px)';
+                const dx = (Math.random() - 0.5) * 200 + 'px';
+                const dy = (Math.random() - 1) * 200 + 'px';
+                heart.style.setProperty('--dx', dx);
+                heart.style.setProperty('--dy', dy);
+
+                document.body.appendChild(heart);
+
+                heart.animate([
+                    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                    { transform: `translate(${dx}, ${dy}) scale(0.5)`, opacity: 0 }
+                ], { duration: 1000 });
+
+                setTimeout(() => heart.remove(), 1000);
+            }
+        }
+
+        setInterval(createLightning, 2000);
     </script>
 </body>
 
