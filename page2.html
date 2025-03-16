@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вторая страница</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         body {
             margin: 0;
@@ -113,7 +112,7 @@
         .skateboard {
             position: absolute;
             bottom: 90px;
-            left: -100px;
+            left: 0;
             width: 100px;
             height: 20px;
             background: #333;
@@ -170,27 +169,53 @@
             overlay.classList.remove('active');
         }
 
+        // Скейтборд анимация
         const skateboard = document.getElementById('skateboard');
+        let posX = 0;
         let direction = 1;
-        let posX = -100;
 
-        function randomJump() {
-            return Math.random() * 40 + 20;
-        }
+        let isJumping = false;
+        let jumpVelocity = 0;
+        let posY = 0;
 
-        function animateSkate() {
+        const gravity = 1.5;
+        const groundY = 0;
+        const jumpStrength = 20;
+
+        function updateSkateboard() {
             posX += direction * 3;
-            if (posX > window.innerWidth) direction = -1;
-            if (posX < -120) direction = 1;
+            if (posX > window.innerWidth - 100) direction = -1;
+            if (posX < 0) direction = 1;
 
-            const jump = Math.random() < 0.03 ? randomJump() : 0;
-            const rotate = jump > 0 ? (direction > 0 ? -10 : 10) : 0;
+            // Случайный прыжок
+            if (!isJumping && Math.random() < 0.03) {
+                isJumping = true;
+                jumpVelocity = jumpStrength;
+            }
 
-            skateboard.style.transform = `translateX(${posX}px) translateY(${-jump}px) rotate(${rotate}deg)`;
-            requestAnimationFrame(animateSkate);
+            // Прыжок с гравитацией
+            if (isJumping) {
+                posY += jumpVelocity;
+                jumpVelocity -= gravity;
+
+                let rotateDeg = direction === 1 ? -20 : 20;
+                let rotation = (jumpVelocity > 0) ? rotateDeg : -rotateDeg;
+
+                skateboard.style.transform = `translateX(${posX}px) translateY(${-posY}px) rotate(${rotation}deg)`;
+
+                if (posY <= groundY) {
+                    posY = 0;
+                    isJumping = false;
+                    skateboard.style.transform = `translateX(${posX}px) translateY(0) rotate(0deg)`;
+                }
+            } else {
+                skateboard.style.transform = `translateX(${posX}px) translateY(0) rotate(0deg)`;
+            }
+
+            requestAnimationFrame(updateSkateboard);
         }
 
-        animateSkate();
+        updateSkateboard();
     </script>
 </body>
 
