@@ -20,7 +20,7 @@
             margin-top: 30px;
         }
 
-        /* Дорога (одна тонкая линия) */
+        /* Дорога */
         .road {
             position: fixed;
             top: 50%;
@@ -44,7 +44,6 @@
             animation: moveSkateboard 8s ease-in-out infinite;
         }
 
-        /* Колеса */
         .skateboard::before,
         .skateboard::after {
             content: '';
@@ -64,7 +63,6 @@
             right: 5px;
         }
 
-        /* Движение + прыжки */
         @keyframes moveSkateboard {
             0% {
                 left: -100px;
@@ -86,7 +84,7 @@
             }
         }
 
-        /* Контент сайта */
+        /* Контент */
         .content {
             position: relative;
             z-index: 5;
@@ -138,6 +136,31 @@
             box-shadow: 0 6px 14px rgba(247, 199, 214, 0.4);
         }
 
+        /* Оверлей и картинка в оверлее */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .overlay.active {
+            display: flex;
+        }
+
+        .overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
         @media (max-width: 600px) {
             .small-image {
                 width: 60%;
@@ -171,7 +194,7 @@
         <a href="index.html" class="button">Вернуться на главную</a>
     </div>
 
-    <!-- Оверлей для увеличенного фото -->
+    <!-- Оверлей -->
     <div class="overlay" onclick="hideOverlay()">
         <img src="" alt="Preview">
     </div>
