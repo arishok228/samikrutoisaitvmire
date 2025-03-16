@@ -90,22 +90,20 @@
             font-size: 20px;
             position: relative;
             z-index: 2;
-            text-align: center;
             width: fit-content;
-            left: 50%;
-            transform: translateX(-50%);
+            text-align: center;
         }
 
         .button:hover {
             background-color: #f7c7d6;
             color: white;
-            transform: translateX(-50%) scale(1.05);
+            transform: scale(1.05);
             box-shadow: 0 6px 14px rgba(247, 199, 214, 0.4);
         }
 
         .road {
             position: absolute;
-            bottom: 60px;
+            bottom: 20px;
             left: 0;
             width: 100%;
             height: 10px;
@@ -115,13 +113,14 @@
 
         .skateboard {
             position: absolute;
-            bottom: 75px;
+            bottom: 40px;
             left: 0;
             width: 100px;
             height: 20px;
             background: #333;
             border-radius: 5px;
             transform-origin: center;
+            z-index: 1;
         }
 
         .wheel {
@@ -147,7 +146,7 @@
     <h1>Вторая страница</h1>
     <img src="bellasport.jpg" class="small-image" onclick="showOverlay(this.src)">
     <p class="description">Белла активно следит за здоровьем и занимается спортом. Ее любимый спорт - скейтбординг.
-        Катание на скейте задействует все группы мышц и является отличной силовой и кардиодыхательной тренировкой.
+        Катание на скейте задействует все группы мышц и является отличной силовой и кардиотренировкой.
     </p>
     <a href="index.html" class="button">Вернуться на главную</a>
 
@@ -176,21 +175,20 @@
         const skateboard = document.getElementById('skateboard');
         let posX = 0;
         let direction = 1;
-
         let isJumping = false;
         let jumpVelocity = 0;
         let posY = 0;
 
-        const gravity = 0.8;
+        const gravity = 0.6;
         const groundY = 0;
-        const jumpStrength = 15;
+        const jumpStrength = 10;
 
         function updateSkateboard() {
             posX += direction * 2;
             if (posX > window.innerWidth - 100) direction = -1;
             if (posX < 0) direction = 1;
 
-            if (!isJumping && Math.random() < 0.01) {
+            if (!isJumping && Math.random() < 0.004) { // прыгает реже
                 isJumping = true;
                 jumpVelocity = jumpStrength;
             }
@@ -199,7 +197,7 @@
                 posY += jumpVelocity;
                 jumpVelocity -= gravity;
 
-                let rotateDeg = direction === 1 ? -15 : 15;
+                let rotateDeg = direction === 1 ? -12 : 12;
                 let rotation = (jumpVelocity > 0) ? rotateDeg : -rotateDeg;
 
                 skateboard.style.transform = `translateX(${posX}px) translateY(${-posY}px) rotate(${rotation}deg)`;
