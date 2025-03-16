@@ -17,6 +17,55 @@
             font-family: Arial, sans-serif;
             margin: 0;
             background-color: #f8f9fa;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Контейнер для сердечек */
+        .hearts-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #f8c8dc;
+            transform: rotate(45deg);
+            opacity: 0.7;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #f8c8dc;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -6px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: -6px;
+            top: 0;
+        }
+
+        h1,
+        .description,
+        .button {
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
@@ -110,6 +159,10 @@
 </head>
 
 <body>
+
+    <!-- Контейнер для сердечек -->
+    <div class="hearts-container" id="hearts"></div>
+
     <h1>ВСЕМ МЯУ!!</h1>
 
     <div class="description">
@@ -120,6 +173,20 @@
     <a href="page3.html" class="button" onclick="circleRedirect(event, 'page3.html')">Перейти на третью страницу</a>
 
     <script>
+        // Сердечки на фоне
+        const container = document.getElementById('hearts');
+        const numHearts = 60;
+
+        for (let i = 0; i < numHearts; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.top = Math.random() * 100 + '%';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.transform += ' scale(' + (0.4 + Math.random() * 0.8) + ') rotate(45deg)';
+            container.appendChild(heart);
+        }
+
+        // Кнопка с ушками
         function circleRedirect(event, url) {
             event.preventDefault();
             const button = event.currentTarget;
