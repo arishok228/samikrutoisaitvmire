@@ -7,6 +7,11 @@
     <title>Вторая страница</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        body {
+            position: relative;
+            overflow-x: hidden;
+        }
+
         .small-image {
             width: 180px;
             height: auto;
@@ -15,6 +20,8 @@
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
             cursor: pointer;
             transition: 0.3s ease;
+            position: relative;
+            z-index: 2;
         }
 
         .overlay {
@@ -41,7 +48,6 @@
             display: flex;
         }
 
-        /* Стили для текста */
         .description {
             max-width: 650px;
             font-size: 22px;
@@ -54,9 +60,10 @@
             border-radius: 12px;
             background-color: #fff;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 2;
         }
 
-        /* Кнопка */
         .button {
             display: inline-block;
             padding: 14px 32px;
@@ -68,6 +75,8 @@
             transition: 0.3s ease;
             margin-top: 30px;
             font-size: 20px;
+            position: relative;
+            z-index: 2;
         }
 
         .button:hover {
@@ -75,6 +84,64 @@
             color: white;
             transform: scale(1.05);
             box-shadow: 0 6px 14px rgba(247, 199, 214, 0.4);
+        }
+
+        /* Дорога */
+        .road {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 80px;
+            background: #333;
+            border-top: 5px dashed #f7c7d6;
+            border-bottom: 5px dashed #f7c7d6;
+            z-index: 1;
+        }
+
+        /* Скейтборд */
+        .skateboard {
+            position: absolute;
+            top: calc(50% - 25px);
+            left: -100px;
+            width: 100px;
+            height: 50px;
+            background: #f7c7d6;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            animation: moveSkateboard 6s linear infinite alternate;
+        }
+
+        .skateboard::before,
+        .skateboard::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            width: 20px;
+            height: 20px;
+            background: #000;
+            border-radius: 50%;
+        }
+
+        .skateboard::before {
+            left: 10px;
+        }
+
+        .skateboard::after {
+            right: 10px;
+        }
+
+        @keyframes moveSkateboard {
+            0% {
+                left: -120px;
+                transform: translateY(-50%) rotate(0deg);
+            }
+
+            100% {
+                left: calc(100% + 120px);
+                transform: translateY(-50%) rotate(5deg);
+            }
         }
 
         @media (max-width: 600px) {
@@ -98,18 +165,18 @@
 <body>
     <h1>Вторая страница</h1>
 
-    <!-- Уменьшенное изображение -->
-    <img src="bellasport.jpg" class="small-image" onclick="showOverlay(this.src)">
+    <!-- Дорога и скейтборд -->
+    <div class="road"></div>
+    <div class="skateboard"></div>
 
+    <img src="bellasport.jpg" class="small-image" onclick="showOverlay(this.src)">
     <p class="description">Белла активно следит за здоровьем и занимается спортом. Ее любимый спорт - скейтбординг.
-        Катание на скейте задействует все группы мышц и является отличной силовой и кардиодыхательной
-        тренировкой, развивает гибкость, баланс и координацию, поэтому Беллочка такая замечательная.
+        Катание на скейте задействует все группы мышц и является отличной силовой и кардиотренировкой,
+        развивает гибкость, баланс и координацию, поэтому Беллочка такая замечательная.
     </p>
 
-    <!-- Кнопка возврата -->
     <a href="index.html" class="button">Вернуться на главную</a>
 
-    <!-- Оверлей для показа фото -->
     <div class="overlay" onclick="hideOverlay()">
         <img src="" alt="Preview">
     </div>
