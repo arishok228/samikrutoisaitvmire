@@ -7,39 +7,38 @@ body {
     text-align: center;
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: #f8f9fa; /* Легкий серый фон для лучшего контраста */
+    background-color: #f8f9fa;
 }
 
 h1 {
     font-size: 36px;
     margin-bottom: 10px;
-    color: #333; /* Темный цвет для заголовка */
+    color: #333;
 }
 
 p {
-    font-size: 22px; /* Увеличенный размер шрифта */
-    max-width: 600px; /* Ограничение ширины текста */
-    line-height: 1.6; /* Улучшенное межстрочное расстояние */
+    font-size: 22px;
+    max-width: 600px;
+    line-height: 1.6;
     margin-bottom: 20px;
-    white-space: pre-line; /* Позволяет разбивать текст на строки */
-    color: #555; /* Серый цвет для текста */
+    white-space: pre-line;
+    color: #555;
 }
 
-/* Добавляем стиль рамки именно для описания */
 .description {
     padding: 15px;
     border: 1px solid #f8c8dc; /* Нежно-розовая рамка */
     border-radius: 8px;
     background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Легкая тень */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 img {
-    max-width: 50%; /* Сделает фото меньше (можно регулировать) */
-    height: auto; /* Сохранит пропорции */
-    margin-bottom: 20px; /* Добавит отступ под фото */
-    border-radius: 10px; /* Немного закруглит края фото */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Легкая тень для фото */
+    max-width: 50%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .button {
@@ -48,21 +47,22 @@ img {
     margin: 10px;
     font-size: 18px;
     text-decoration: none;
-    color: white;
-    background-color: #007bff;
-    border-radius: 5px;
-    transition: all 0.3s ease; /* Плавный переход эффектов */
-    border: none;
+    color: #f8c8dc; /* Нежно-розовый текст */
+    background-color: transparent;
+    border: 1px solid #f8c8dc; /* Нежно-розовая рамка */
+    border-radius: 8px;
+    transition: all 0.3s ease;
     cursor: pointer;
 }
 
 .button:hover {
-    background-color: #0056b3;
-    transform: scale(1.1); /* Увеличение кнопки */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Добавление тени */
+    background-color: #f8c8dc;
+    color: #fff; /* Белый текст при наведении */
+    box-shadow: 0px 4px 10px rgba(248, 200, 220, 0.5);
 }
 
 .button:active {
-    transform: scale(1.05); /* Небольшое уменьшение при клике */
-    background-color: #004080;
+    transform: scale(0.98);
+    background-color: #f5b8cf;
+    border-color: #f5b8cf;
 }
