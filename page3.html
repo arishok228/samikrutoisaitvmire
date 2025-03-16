@@ -1,26 +1,128 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Третья страница</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .small-image {
+            width: 180px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .overlay.active {
+            display: flex;
+        }
+
+        .description {
+            max-width: 650px;
+            font-size: 22px;
+            line-height: 1.6;
+            margin: 30px auto;
+            color: #444;
+            text-align: center;
+            padding: 25px 30px;
+            border: 1px solid #f7c7d6;
+            border-radius: 12px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .button {
+            display: inline-block;
+            padding: 14px 32px;
+            background: transparent;
+            color: #f7c7d6;
+            text-decoration: none;
+            border: 1px solid #f7c7d6;
+            border-radius: 8px;
+            transition: 0.3s ease;
+            margin-top: 30px;
+            font-size: 20px;
+        }
+
+        .button:hover {
+            background-color: #f7c7d6;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 6px 14px rgba(247, 199, 214, 0.4);
+        }
+
+        @media (max-width: 600px) {
+            .small-image {
+                width: 60%;
+            }
+
+            .description {
+                font-size: 18px;
+                padding: 15px 20px;
+            }
+
+            .button {
+                padding: 12px 24px;
+                font-size: 18px;
+            }
+        }
+    </style>
 </head>
+
 <body>
     <h1>Третья страница</h1>
-    
-    <!-- Уменьшенное изображение без описания -->
-    <img src="photo_2025-03-15_19-35-01.jpg" class="small-image">
 
-    <!-- Белла активно следит за здоровьем и занимается спортом. 
-    Ее любимый спорт - скейтбординг. Катание на скейте задействует все группы мышц и является отличной
-    силовой и кардиодыхательной тренировкой, развивает гибкость, баланс и координацию, 
-    поэтому Беллочка такая замечательная. -->
+    <!-- Уменьшенное изображение с кликом -->
+    <img src="photo_2025-03-15_19-35-01.jpg" class="small-image" onclick="showOverlay(this.src)">
+
     <p class="description">Белла активно следит за здоровьем и занимается спортом. Ее любимый спорт - скейтбординг.
-        Катание на скейте задействует все группы мышц и является отличной силовой и кардиодыхательной 
-        тренировкой, развивает гибкость, баланс и координацию, поэтому Беллочка такая замечательная.</p>
+        Катание на скейте задействует все группы мышц и является отличной силовой и кардиодыхательной
+        тренировкой, развивает гибкость, баланс и координацию, поэтому Беллочка такая замечательная.
+    </p>
 
-    <!-- Кнопка возврата -->
     <a href="index.html" class="button">Вернуться на главную</a>
+
+    <!-- Оверлей -->
+    <div class="overlay" onclick="hideOverlay()">
+        <img src="" alt="Preview">
+    </div>
+
+    <script>
+        function showOverlay(src) {
+            const overlay = document.querySelector('.overlay');
+            overlay.querySelector('img').src = src;
+            overlay.classList.add('active');
+        }
+
+        function hideOverlay() {
+            const overlay = document.querySelector('.overlay');
+            overlay.classList.remove('active');
+        }
+    </script>
 </body>
+
 </html>
