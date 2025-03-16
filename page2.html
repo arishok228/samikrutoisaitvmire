@@ -78,34 +78,31 @@
         }
 
         .button {
-            display: block;
-            padding: 12px 24px;
-            background: transparent;
+            display: inline-block;
+            padding: 12px 28px;
+            background: white;
             color: #f7c7d6;
             text-decoration: none;
-            border: 1px solid #f7c7d6;
-            border-radius: 8px;
+            border: 2px solid #f7c7d6;
+            border-radius: 25px;
             transition: 0.3s ease;
-            margin: 30px auto 50px;
+            margin: 10px auto 50px;
             font-size: 20px;
             position: relative;
             z-index: 2;
             text-align: center;
-            width: fit-content;
-            left: 50%;
-            transform: translateX(-50%);
         }
 
         .button:hover {
             background-color: #f7c7d6;
             color: white;
-            transform: translateX(-50%) scale(1.05);
+            transform: scale(1.05);
             box-shadow: 0 6px 14px rgba(247, 199, 214, 0.4);
         }
 
         .road {
             position: absolute;
-            bottom: -150px;
+            bottom: -120px;
             left: 0;
             width: 100%;
             height: 10px;
@@ -115,7 +112,7 @@
 
         .skateboard {
             position: absolute;
-            bottom: -135px;
+            bottom: -105px;
             left: 0;
             width: 100px;
             height: 20px;
@@ -149,7 +146,9 @@
     <p class="description">Белла активно следит за здоровьем и занимается спортом. Ее любимый спорт - скейтбординг.
         Катание на скейте задействует все группы мышц и является отличной силовой и кардиодыхательной тренировкой.
     </p>
-    <a href="index.html" class="button">Вернуться на главную</a>
+    <div style="text-align: center;">
+        <a href="index.html" class="button">Вернуться на главную</a>
+    </div>
 
     <div class="overlay" onclick="hideOverlay()">
         <img src="" alt="Preview">
