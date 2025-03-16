@@ -41,6 +41,14 @@
             white-space: pre-line;
             z-index: 2;
             min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .typewriter-text {
+            display: inline-block;
+            text-align: left;
         }
 
         .button {
@@ -112,7 +120,7 @@
             opacity: 1;
         }
 
-        /* Стили для фона */
+        /* Фон */
         .background-shapes {
             position: fixed;
             top: 0;
@@ -168,7 +176,9 @@
 <body>
     <h1>ВСЕМ МЯУ!!</h1>
 
-    <div class="description" id="typewriter"></div>
+    <div class="description">
+        <div class="typewriter-text" id="typewriter"></div>
+    </div>
 
     <a href="page2.html" class="button" onclick="circleRedirect(event, 'page2.html')">Перейти на вторую страницу</a>
     <a href="page3.html" class="button" onclick="circleRedirect(event, 'page3.html')">Перейти на третью страницу</a>
@@ -183,7 +193,7 @@
             if (i < text.length) {
                 document.getElementById("typewriter").innerHTML += text.charAt(i);
                 i++;
-                setTimeout(typeWriter, 40); // скорость набора
+                setTimeout(typeWriter, 40);
             }
         }
         typeWriter();
@@ -222,9 +232,7 @@
                 shape.style.top = Math.random() * 100 + '%';
                 shape.style.left = Math.random() * 100 + '%';
 
-                // 25% случайных наклонов
-                const random = Math.random();
-                if (random < 0.25) {
+                if (Math.random() < 0.25) {
                     const angle = (Math.random() > 0.5 ? -1 : 1) * (Math.random() * 20);
                     shape.style.transform = `rotate(${angle}deg)`;
                 }
