@@ -1,6 +1,6 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +16,7 @@
             text-align: center;
             font-family: Arial, sans-serif;
             margin: 0;
+            background-color: #f8f9fa;
         }
 
         h1 {
@@ -50,20 +51,54 @@
         }
 
         .circle-effect {
-            border-radius: 50% !important;
-            width: 50px !important;
-            height: 50px !important;
-            padding: 0 !important;
-            font-size: 0 !important;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            padding: 0;
+            font-size: 0;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        /* Ушки */
+        .circle-effect::before,
+        .circle-effect::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
             opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .circle-effect::before {
+            top: -15px;
+            left: 5px;
+            border-width: 0 10px 15px 10px;
+            border-color: transparent transparent #007bff transparent;
+        }
+
+        .circle-effect::after {
+            top: -15px;
+            right: 5px;
+            border-width: 0 10px 15px 10px;
+            border-color: transparent transparent #007bff transparent;
+        }
+
+        .show-ears.circle-effect::before,
+        .show-ears.circle-effect::after {
+            opacity: 1;
         }
     </style>
 </head>
+
 <body>
     <h1>ВСЕМ МЯУ!!</h1>
     <p>Данный сайт создан с целью познакомить вас с самой умной в мире кошкой Беллой.
         Белле уже 10 лет и она развила все сложнейшие навыки на высочайшем уровне.
         На последующих страницах вы сможете понаблюдать некоторые из них.</p>
+
     <a href="page2.html" class="button" onclick="circleRedirect(event, 'page2.html')">Перейти на вторую страницу</a>
     <a href="page3.html" class="button" onclick="circleRedirect(event, 'page3.html')">Перейти на третью страницу</a>
 
@@ -72,10 +107,18 @@
             event.preventDefault();
             const button = event.currentTarget;
             button.classList.add('circle-effect');
+
+            // Ждем анимацию круга, потом показываем ушки
+            setTimeout(() => {
+                button.classList.add('show-ears');
+            }, 400);
+
+            // Переход после полной анимации
             setTimeout(() => {
                 window.location.href = url;
-            }, 600);
+            }, 1200);
         }
     </script>
 </body>
+
 </html>
