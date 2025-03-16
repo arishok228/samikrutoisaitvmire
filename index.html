@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная страница</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         body {
             display: flex;
@@ -96,7 +95,65 @@
             transform: rotate(25deg);
         }
 
-        .show-ears .ears {
+        .whiskers {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 60px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .whisker {
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background-color: #007bff;
+        }
+
+        /* Левые усы */
+        .whisker-left-1 {
+            left: -35px;
+            top: -10px;
+            transform: rotate(-15deg);
+        }
+
+        .whisker-left-2 {
+            left: -35px;
+            top: 0;
+            transform: rotate(0deg);
+        }
+
+        .whisker-left-3 {
+            left: -35px;
+            top: 10px;
+            transform: rotate(15deg);
+        }
+
+        /* Правые усы */
+        .whisker-right-1 {
+            right: -35px;
+            top: -10px;
+            transform: rotate(15deg);
+        }
+
+        .whisker-right-2 {
+            right: -35px;
+            top: 0;
+            transform: rotate(0deg);
+        }
+
+        .whisker-right-3 {
+            right: -35px;
+            top: 10px;
+            transform: rotate(-15deg);
+        }
+
+        .show-details .ears,
+        .show-details .whiskers {
             opacity: 1;
         }
     </style>
@@ -116,7 +173,8 @@
             event.preventDefault();
             const button = event.currentTarget;
             button.classList.add('circle-effect');
-            // добавляем ушки
+
+            // ушки
             let ears = document.createElement('div');
             ears.classList.add('ears');
             ears.innerHTML = `
@@ -124,14 +182,28 @@
                 <div class="ear-right"></div>
             `;
             button.appendChild(ears);
-            // заставляем их плавно появиться
+
+            // усы
+            let whiskers = document.createElement('div');
+            whiskers.classList.add('whiskers');
+            whiskers.innerHTML = `
+                <div class="whisker whisker-left-1"></div>
+                <div class="whisker whisker-left-2"></div>
+                <div class="whisker whisker-left-3"></div>
+                <div class="whisker whisker-right-1"></div>
+                <div class="whisker whisker-right-2"></div>
+                <div class="whisker whisker-right-3"></div>
+            `;
+            button.appendChild(whiskers);
+
+            // плавное появление
             setTimeout(() => {
-                button.classList.add('show-ears');
+                button.classList.add('show-details');
             }, 100);
 
             setTimeout(() => {
                 window.location.href = url;
-            }, 1200);
+            }, 1500);
         }
     </script>
 </body>
