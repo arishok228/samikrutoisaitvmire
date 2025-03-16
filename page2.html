@@ -13,7 +13,6 @@
             overflow-x: hidden;
             font-family: Arial, sans-serif;
             position: relative;
-            min-height: 100vh;
         }
 
         h1 {
@@ -79,7 +78,7 @@
         }
 
         .button {
-            display: inline-block;
+            display: block;
             padding: 14px 32px;
             background: transparent;
             color: #f7c7d6;
@@ -92,18 +91,21 @@
             position: relative;
             z-index: 2;
             text-align: center;
+            width: fit-content;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .button:hover {
             background-color: #f7c7d6;
             color: white;
-            transform: scale(1.05);
+            transform: translateX(-50%) scale(1.05);
             box-shadow: 0 6px 14px rgba(247, 199, 214, 0.4);
         }
 
         .road {
             position: absolute;
-            bottom: 10px;
+            bottom: 60px;
             left: 0;
             width: 100%;
             height: 10px;
@@ -113,14 +115,13 @@
 
         .skateboard {
             position: absolute;
-            bottom: 20px;
+            bottom: 75px;
             left: 0;
             width: 100px;
             height: 20px;
             background: #333;
             border-radius: 5px;
             transform-origin: center;
-            z-index: 2;
         }
 
         .wheel {
@@ -146,7 +147,7 @@
     <h1>Вторая страница</h1>
     <img src="bellasport.jpg" class="small-image" onclick="showOverlay(this.src)">
     <p class="description">Белла активно следит за здоровьем и занимается спортом. Ее любимый спорт - скейтбординг.
-        Катание на скейте задействует все группы мышц и является отличной силовой и кардиотренировкой.
+        Катание на скейте задействует все группы мышц и является отличной силовой и кардиодыхательной тренировкой.
     </p>
     <a href="index.html" class="button">Вернуться на главную</a>
 
@@ -180,16 +181,16 @@
         let jumpVelocity = 0;
         let posY = 0;
 
-        const gravity = 0.5;
+        const gravity = 0.8;
         const groundY = 0;
-        const jumpStrength = 10;
+        const jumpStrength = 15;
 
         function updateSkateboard() {
             posX += direction * 2;
             if (posX > window.innerWidth - 100) direction = -1;
             if (posX < 0) direction = 1;
 
-            if (!isJumping && Math.random() < 0.002) {
+            if (!isJumping && Math.random() < 0.01) {
                 isJumping = true;
                 jumpVelocity = jumpStrength;
             }
