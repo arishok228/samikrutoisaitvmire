@@ -86,12 +86,12 @@
             border: 1px solid #f7c7d6;
             border-radius: 8px;
             transition: 0.3s ease;
-            margin: 30px auto;
+            margin: 30px auto 50px auto;
             font-size: 20px;
             position: relative;
             z-index: 2;
-            width: fit-content;
             text-align: center;
+            width: fit-content;
         }
 
         .button:hover {
@@ -103,7 +103,7 @@
 
         .road {
             position: absolute;
-            bottom: 20px;
+            bottom: 30px;
             left: 0;
             width: 100%;
             height: 10px;
@@ -113,14 +113,13 @@
 
         .skateboard {
             position: absolute;
-            bottom: 40px;
+            bottom: 50px;
             left: 0;
             width: 100px;
             height: 20px;
             background: #333;
             border-radius: 5px;
             transform-origin: center;
-            z-index: 1;
         }
 
         .wheel {
@@ -146,7 +145,7 @@
     <h1>Вторая страница</h1>
     <img src="bellasport.jpg" class="small-image" onclick="showOverlay(this.src)">
     <p class="description">Белла активно следит за здоровьем и занимается спортом. Ее любимый спорт - скейтбординг.
-        Катание на скейте задействует все группы мышц и является отличной силовой и кардиотренировкой.
+        Катание на скейте задействует все группы мышц и является отличной силовой и кардиодыхательной тренировкой.
     </p>
     <a href="index.html" class="button">Вернуться на главную</a>
 
@@ -188,7 +187,7 @@
             if (posX > window.innerWidth - 100) direction = -1;
             if (posX < 0) direction = 1;
 
-            if (!isJumping && Math.random() < 0.004) { // прыгает реже
+            if (!isJumping && Math.random() < 0.007) {
                 isJumping = true;
                 jumpVelocity = jumpStrength;
             }
@@ -197,7 +196,7 @@
                 posY += jumpVelocity;
                 jumpVelocity -= gravity;
 
-                let rotateDeg = direction === 1 ? -12 : 12;
+                let rotateDeg = direction === 1 ? -15 : 15;
                 let rotation = (jumpVelocity > 0) ? rotateDeg : -rotateDeg;
 
                 skateboard.style.transform = `translateX(${posX}px) translateY(${-posY}px) rotate(${rotation}deg)`;
