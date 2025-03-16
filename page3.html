@@ -77,6 +77,13 @@
             z-index: 2;
         }
 
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+            z-index: 2;
+            position: relative;
+        }
+
         .button {
             display: inline-block;
             padding: 14px 32px;
@@ -86,10 +93,7 @@
             border: 1px solid #f7c7d6;
             border-radius: 8px;
             transition: 0.3s ease;
-            margin-top: 30px;
             font-size: 20px;
-            position: relative;
-            z-index: 2;
         }
 
         .button:hover {
@@ -106,7 +110,7 @@
             position: absolute;
             transform: translate(-50%, -50%);
             clip-path: polygon(50% 0%, 100% 35%, 82% 100%, 50% 80%, 18% 100%, 0% 35%);
-            animation: fly 1.8s ease forwards;
+            animation: fly 2s ease forwards;
         }
 
         @keyframes fly {
@@ -148,7 +152,10 @@
     <p class="description">Беллочка очень умная кошка и дошла до такой ступени эволюции , как человек.
         На данной фотографии вы можете увидеть, как Беллочка развивает способность к прямохождению.
     </p>
-    <a href="index.html" class="button">Вернуться на главную</a>
+
+    <div class="button-container">
+        <a href="index.html" class="button">Вернуться на главную</a>
+    </div>
 
     <div class="overlay" onclick="hideOverlay()">
         <img src="" alt="Preview">
@@ -211,16 +218,16 @@
         }
 
         function createHearts(x, y) {
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 70; i++) {
                 const heart = document.createElement('div');
                 heart.classList.add('heart');
                 heart.style.left = `${x}px`;
                 heart.style.top = `${y}px`;
-                heart.style.setProperty('--x', `${(Math.random() - 0.5) * 500}px`);
-                heart.style.setProperty('--y', `${(Math.random() - 0.5) * 500 - 150}px`);
+                heart.style.setProperty('--x', `${(Math.random() - 0.5) * 600}px`);
+                heart.style.setProperty('--y', `${(Math.random() - 0.5) * 600 - 200}px`);
                 document.body.appendChild(heart);
 
-                setTimeout(() => heart.remove(), 1800);
+                setTimeout(() => heart.remove(), 2000);
             }
         }
 
