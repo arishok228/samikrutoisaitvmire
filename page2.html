@@ -1,26 +1,75 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вторая страница</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Стили для уменьшенного изображения */
+        .small-image {
+            width: 180px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Стили для текста */
+        .description {
+            max-width: 600px;
+            font-size: 20px;
+            line-height: 1.5;
+            margin: 20px auto;
+            color: #444;
+            text-align: center;
+        }
+
+        /* Кнопка */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Адаптация для мобильных устройств */
+        @media (max-width: 600px) {
+            .small-image {
+                width: 60%;
+            }
+
+            .description {
+                font-size: 18px;
+                padding: 0 10px;
+            }
+        }
+    </style>
 </head>
+
 <body>
     <h1>Вторая страница</h1>
-    
-    <!-- Уменьшенное изображение без описания -->
+
+    <!-- Уменьшенное изображение -->
     <img src="bellasport.jpg" class="small-image">
 
-    <!-- Белла активно следит за здоровьем и занимается спортом. 
-    Ее любимый спорт - скейтбординг. Катание на скейте задействует все группы мышц и является отличной
-    силовой и кардиодыхательной тренировкой, развивает гибкость, баланс и координацию, 
-    поэтому Беллочка такая замечательная. -->
     <p class="description">Белла активно следит за здоровьем и занимается спортом. Ее любимый спорт - скейтбординг.
-        Катание на скейте задействует все группы мышц и является отличной силовой и кардиодыхательной 
-        тренировкой, развивает гибкость, баланс и координацию, поэтому Беллочка такая замечательная.</p>
+        Катание на скейте задействует все группы мышц и является отличной силовой и кардиодыхательной
+        тренировкой, развивает гибкость, баланс и координацию, поэтому Беллочка такая замечательная.
+    </p>
 
     <!-- Кнопка возврата -->
     <a href="index.html" class="button">Вернуться на главную</a>
 </body>
+
 </html>
