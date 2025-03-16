@@ -25,13 +25,18 @@
             color: #333;
         }
 
-        p {
+        .description {
+            max-width: 650px;
             font-size: 22px;
-            max-width: 600px;
             line-height: 1.6;
             margin-bottom: 20px;
-            white-space: pre-line;
             color: #555;
+            padding: 25px 30px;
+            border: 1px solid #f7c7d6;
+            border-radius: 12px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            white-space: pre-line;
         }
 
         .button {
@@ -104,9 +109,12 @@
 
 <body>
     <h1>ВСЕМ МЯУ!!</h1>
-    <p>Данный сайт создан с целью познакомить вас с самой умной в мире кошкой Беллой.
+
+    <div class="description">
+        Данный сайт создан с целью познакомить вас с самой умной в мире кошкой Беллой.
         Белле уже 10 лет и она развила все сложнейшие навыки на высочайшем уровне.
-        На последующих страницах вы сможете понаблюдать некоторые из них.</p>
+        На последующих страницах вы сможете понаблюдать некоторые из них.
+    </div>
 
     <a href="page2.html" class="button" onclick="circleRedirect(event, 'page2.html')">Перейти на вторую страницу</a>
     <a href="page3.html" class="button" onclick="circleRedirect(event, 'page3.html')">Перейти на третью страницу</a>
@@ -116,7 +124,6 @@
             event.preventDefault();
             const button = event.currentTarget;
             button.classList.add('circle-effect');
-            // добавляем ушки
             let ears = document.createElement('div');
             ears.classList.add('ears');
             ears.innerHTML = `
@@ -124,7 +131,6 @@
                 <div class="ear-right"></div>
             `;
             button.appendChild(ears);
-            // заставляем их плавно появиться
             setTimeout(() => {
                 button.classList.add('show-ears');
             }, 100);
