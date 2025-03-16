@@ -128,8 +128,28 @@
             width: 20px;
             height: 20px;
             background: #f8c8dc;
-            clip-path: polygon(50% 0%, 61% 11%, 73% 11%, 84% 22%, 84% 34%, 50% 70%, 16% 34%, 16% 22%, 27% 11%, 39% 11%);
-            opacity: 0.7;
+            transform: rotate(45deg);
+            z-index: 0;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #f8c8dc;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: -10px;
+            top: 0;
         }
     </style>
 </head>
@@ -175,15 +195,13 @@
             const heart = document.createElement('div');
             heart.classList.add('heart');
 
-            // Рандомная позиция с отступами от краёв
             heart.style.top = Math.random() * 90 + 5 + '%';
             heart.style.left = Math.random() * 90 + 5 + '%';
 
-            // Размер и поворот
-            const scale = 0.4 + Math.random() * 0.8;
+            const scale = 0.3 + Math.random() * 0.7;
             let rotation = 0;
             if (Math.random() < 0.5) {
-                rotation = -15 + Math.random() * 30; // от -15 до +15 градусов
+                rotation = -20 + Math.random() * 40;
             }
             heart.style.transform = `rotate(${rotation}deg) scale(${scale})`;
 
