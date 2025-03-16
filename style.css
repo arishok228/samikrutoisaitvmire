@@ -27,7 +27,7 @@ p {
 
 /* Основной блок с рамкой и текстом */
 .description {
-    padding: 8px 20px 20px 20px; /* Меньше верхний padding */
+    padding: 8px 20px 20px 20px;
     border: 1px solid #f8c8dc; /* Нежно-розовая рамка */
     border-radius: 8px;
     background-color: #fff;
@@ -55,11 +55,12 @@ img {
     border-radius: 8px;
     transition: all 0.3s ease;
     cursor: pointer;
+    position: relative;
 }
 
 .button:hover {
     background-color: #f8c8dc;
-    color: #fff; /* Белый текст при наведении */
+    color: #fff;
     box-shadow: 0px 4px 10px rgba(248, 200, 220, 0.5);
 }
 
@@ -67,4 +68,50 @@ img {
     transform: scale(0.98);
     background-color: #f5b8cf;
     border-color: #f5b8cf;
+}
+
+/* Эффект превращения кнопки в круг */
+.circle-effect {
+    border-radius: 50% !important;
+    width: 60px !important;
+    height: 60px !important;
+    padding: 0 !important;
+    font-size: 0 !important;
+    background-color: #f8c8dc !important;
+    transition: all 0.6s ease;
+}
+
+/* Ушки */
+.ears {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.ear-left,
+.ear-right {
+    border-style: solid;
+    border-width: 0 10px 15px 10px;
+    border-color: transparent transparent #f8c8dc transparent;
+    position: absolute;
+}
+
+.ear-left {
+    left: 0;
+    transform: rotate(-25deg);
+}
+
+.ear-right {
+    right: 0;
+    transform: rotate(25deg);
+}
+
+.show-ears .ears {
+    opacity: 1;
 }
