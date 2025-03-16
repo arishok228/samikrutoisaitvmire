@@ -17,61 +17,15 @@
             font-family: Arial, sans-serif;
             margin: 0;
             background-color: #f8f9fa;
+            position: relative;
             overflow: hidden;
-            position: relative;
-        }
-
-        /* Контейнер для сердечек */
-        .hearts-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .heart {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: #f8c8dc;
-            transform: rotate(45deg);
-            opacity: 0.7;
-        }
-
-        .heart::before,
-        .heart::after {
-            content: '';
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: #f8c8dc;
-            border-radius: 50%;
-        }
-
-        .heart::before {
-            top: -6px;
-            left: 0;
-        }
-
-        .heart::after {
-            left: -6px;
-            top: 0;
-        }
-
-        h1,
-        .description,
-        .button {
-            position: relative;
-            z-index: 1;
         }
 
         h1 {
             font-size: 36px;
             margin-bottom: 10px;
             color: #333;
+            z-index: 1;
         }
 
         .description {
@@ -86,6 +40,7 @@
             background-color: #fff;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             white-space: pre-line;
+            z-index: 1;
         }
 
         .button {
@@ -101,6 +56,7 @@
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
+            z-index: 1;
         }
 
         .button:hover {
@@ -155,13 +111,31 @@
         .show-ears .ears {
             opacity: 1;
         }
+
+        /* Сердечки */
+        #hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #f8c8dc;
+            clip-path: polygon(50% 0%, 61% 11%, 73% 11%, 84% 22%, 84% 34%, 50% 70%, 16% 34%, 16% 22%, 27% 11%, 39% 11%);
+            opacity: 0.7;
+        }
     </style>
 </head>
 
 <body>
-
-    <!-- Контейнер для сердечек -->
-    <div class="hearts-container" id="hearts"></div>
+    <div id="hearts"></div>
 
     <h1>ВСЕМ МЯУ!!</h1>
 
@@ -173,20 +147,6 @@
     <a href="page3.html" class="button" onclick="circleRedirect(event, 'page3.html')">Перейти на третью страницу</a>
 
     <script>
-        // Сердечки на фоне
-        const container = document.getElementById('hearts');
-        const numHearts = 60;
-
-        for (let i = 0; i < numHearts; i++) {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.style.top = Math.random() * 100 + '%';
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.transform += ' scale(' + (0.4 + Math.random() * 0.8) + ') rotate(45deg)';
-            container.appendChild(heart);
-        }
-
-        // Кнопка с ушками
         function circleRedirect(event, url) {
             event.preventDefault();
             const button = event.currentTarget;
@@ -205,6 +165,29 @@
             setTimeout(() => {
                 window.location.href = url;
             }, 1200);
+        }
+
+        // Сердечки
+        const container = document.getElementById('hearts');
+        const numHearts = 60;
+
+        for (let i = 0; i < numHearts; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+
+            // Рандомная позиция с отступами от краёв
+            heart.style.top = Math.random() * 90 + 5 + '%';
+            heart.style.left = Math.random() * 90 + 5 + '%';
+
+            // Размер и поворот
+            const scale = 0.4 + Math.random() * 0.8;
+            let rotation = 0;
+            if (Math.random() < 0.5) {
+                rotation = -15 + Math.random() * 30; // от -15 до +15 градусов
+            }
+            heart.style.transform = `rotate(${rotation}deg) scale(${scale})`;
+
+            container.appendChild(heart);
         }
     </script>
 </body>
