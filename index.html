@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная страница</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         body {
             display: flex;
@@ -21,37 +20,6 @@
             overflow: hidden;
         }
 
-        /* Сердечки */
-        .heart {
-            width: 15px;
-            height: 15px;
-            background-color: #f8c8dc;
-            position: absolute;
-            transform: rotate(45deg);
-            border-radius: 50% 50% 0 0;
-        }
-
-        .heart::before,
-        .heart::after {
-            content: "";
-            width: 15px;
-            height: 15px;
-            background-color: #f8c8dc;
-            position: absolute;
-            border-radius: 50%;
-        }
-
-        .heart::before {
-            top: -7.5px;
-            left: 0;
-        }
-
-        .heart::after {
-            left: -7.5px;
-            top: 0;
-        }
-
-        /* Контент сайта */
         h1 {
             font-size: 36px;
             margin-bottom: 10px;
@@ -143,11 +111,73 @@
         .show-ears .ears {
             opacity: 1;
         }
+
+        /* Сердечко */
+        .heart {
+            width: 15px;
+            height: 15px;
+            background-color: #f8c8dc;
+            position: absolute;
+            transform: rotate(45deg);
+            border-radius: 50% 50% 0 0;
+            opacity: 0.8;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            width: 15px;
+            height: 15px;
+            background-color: #f8c8dc;
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -7.5px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: -7.5px;
+            top: 0;
+        }
+
+        /* Звезда */
+        .star {
+            width: 0;
+            height: 0;
+            position: absolute;
+            opacity: 0.8;
+        }
+
+        .star::before,
+        .star::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 14px solid #f8c8dc;
+        }
+
+        .star::after {
+            top: 7px;
+            transform: rotate(180deg);
+        }
+
+        /* Плавное появление/исчезновение */
+        .fade {
+            transition: opacity 1s ease;
+        }
     </style>
 </head>
 
 <body>
-    <div id="hearts"></div>
+    <div id="bg-container" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1;"></div>
 
     <h1>ВСЕМ МЯУ!!</h1>
 
@@ -179,28 +209,44 @@
             }, 1200);
         }
 
-        // Сердечки с вероятностью наклона
-        const container = document.getElementById('hearts');
-        const numHearts = 60;
+        // Генерация сердечек и звезд
+        const container = document.getElementById('bg-container');
+        const numShapes = 60;
+        let toggle = true;
 
-        for (let i = 0; i < numHearts; i++) {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-
-            heart.style.top = Math.random() * 90 + 5 + '%';
-            heart.style.left = Math.random() * 90 + 5 + '%';
-
-            const scale = 0.4 + Math.random() * 0.6;
-
-            let rotation = 0;
-            if (Math.random() < 0.25) {
-                rotation = -20 + Math.random() * 40; // от -20 до +20 градусов
-            }
-
-            heart.style.transform = `rotate(45deg) rotate(${rotation}deg) scale(${scale})`;
-
-            container.appendChild(heart);
+        function clearContainer() {
+            container.innerHTML = '';
         }
+
+        function generateShapes(type) {
+            clearContainer();
+            for (let i = 0; i < numShapes; i++) {
+                const shape = document.createElement('div');
+                shape.classList.add(type, 'fade');
+
+                shape.style.top = Math.random() * 95 + '%';
+                shape.style.left = Math.random() * 95 + '%';
+
+                const scale = 0.4 + Math.random() * 0.6;
+                let rotation = 0;
+                if (Math.random() < 0.25) {
+                    rotation = -20 + Math.random() * 40;
+                }
+
+                shape.style.transform = `rotate(${rotation}deg) scale(${scale})`;
+
+                container.appendChild(shape);
+            }
+        }
+
+        // Первоначально сердечки
+        generateShapes('heart');
+
+        // Меняем каждые 3 секунды
+        setInterval(() => {
+            toggle = !toggle;
+            generateShapes(toggle ? 'heart' : 'star');
+        }, 3000);
     </script>
 </body>
 
