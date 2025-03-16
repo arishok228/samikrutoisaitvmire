@@ -25,6 +25,15 @@ p {
     color: #555; /* Серый цвет для текста */
 }
 
+/* Добавляем стиль рамки именно для описания */
+.description {
+    padding: 15px;
+    border: 1px solid #f8c8dc; /* Нежно-розовая рамка */
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Легкая тень */
+}
+
 img {
     max-width: 50%; /* Сделает фото меньше (можно регулировать) */
     height: auto; /* Сохранит пропорции */
