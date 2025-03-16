@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная страница</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             display: flex;
@@ -17,7 +18,6 @@
             margin: 0;
             background-color: #f8f9fa;
             overflow: hidden;
-            cursor: none; /* убираем обычный курсор */
         }
 
         h1 {
@@ -74,12 +74,79 @@
             box-shadow: 0px 4px 10px rgba(248, 200, 220, 0.5);
         }
 
+        .circle-effect {
+            border-radius: 50% !important;
+            width: 60px !important;
+            height: 60px !important;
+            padding: 0 !important;
+            font-size: 0 !important;
+            background-color: #f8c8dc !important;
+            position: relative;
+            transition: all 0.6s ease;
+            border: none !important;
+        }
+
+        .ears {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .ear-left,
+        .ear-right {
+            border-style: solid;
+            border-width: 0 10px 15px 10px;
+            border-color: transparent transparent #f8c8dc transparent;
+            position: absolute;
+        }
+
+        .ear-left {
+            left: 0;
+            transform: rotate(-25deg);
+        }
+
+        .ear-right {
+            right: 0;
+            transform: rotate(25deg);
+        }
+
+        .show-ears .ears {
+            opacity: 1;
+        }
+
+        /* Фон */
+        .background-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+            transition: opacity 1s ease;
+        }
+
+        .shape {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            opacity: 0.5;
+            transform-origin: center;
+        }
+
         /* Сердечко */
         .heart {
-            width: 10px;
-            height: 10px;
+            width: 20px;
+            height: 20px;
             background: #f8c8dc;
-            position: absolute;
+            position: relative;
             transform: rotate(-45deg);
             border-radius: 50% 50% 0 0;
         }
@@ -88,50 +155,30 @@
         .heart::after {
             content: "";
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 20px;
+            height: 20px;
             background: #f8c8dc;
             border-radius: 50%;
         }
 
         .heart::before {
-            top: -5px;
+            top: -10px;
             left: 0;
         }
 
         .heart::after {
-            left: 5px;
+            left: 10px;
             top: 0;
         }
 
-        /* След сердечек */
-        .cursor-heart {
-            position: fixed;
-            pointer-events: none;
-            animation: fadeOut 1s forwards;
-            z-index: 1000;
-        }
-
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0);
-            }
-        }
-
-        /* Кастомный курсор */
-        .custom-cursor {
-            position: fixed;
-            width: 12px;
-            height: 12px;
-            background: #f8c8dc;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 999;
+        /* Звезда */
+        .star::before {
+            content: "★";
+            position: absolute;
+            color: #f8c8dc;
+            font-size: 20px;
+            top: 0;
+            left: 0;
         }
     </style>
 </head>
@@ -146,8 +193,7 @@
     <a href="page2.html" class="button" onclick="circleRedirect(event, 'page2.html')">Перейти на вторую страницу</a>
     <a href="page3.html" class="button" onclick="circleRedirect(event, 'page3.html')">Перейти на третью страницу</a>
 
-    <!-- Кастомный курсор -->
-    <div class="custom-cursor" id="custom-cursor"></div>
+    <div class="background-shapes" id="background"></div>
 
     <script>
         // Typewriter эффект
@@ -167,28 +213,59 @@
             event.preventDefault();
             const button = event.currentTarget;
             button.classList.add('circle-effect');
+            let ears = document.createElement('div');
+            ears.classList.add('ears');
+            ears.innerHTML = `
+                <div class="ear-left"></div>
+                <div class="ear-right"></div>
+            `;
+            button.appendChild(ears);
+            setTimeout(() => {
+                button.classList.add('show-ears');
+            }, 100);
+
             setTimeout(() => {
                 window.location.href = url;
-            }, 800);
+            }, 1200);
         }
 
-        // След сердечек
-        document.addEventListener('mousemove', (e) => {
-            const heart = document.createElement('div');
-            heart.classList.add('heart', 'cursor-heart');
-            heart.style.left = `${e.clientX}px`;
-            heart.style.top = `${e.clientY}px`;
-            document.body.appendChild(heart);
+        // Фон сердечки/звездочки
+        const background = document.getElementById('background');
+        let shapeType = 'heart';
+        let isSwitching = false;
+
+        function generateShapes() {
+            background.innerHTML = '';
+            for (let i = 0; i < 50; i++) {
+                const shape = document.createElement('div');
+                shape.classList.add('shape', shapeType);
+
+                shape.style.top = Math.random() * 100 + '%';
+                shape.style.left = Math.random() * 100 + '%';
+
+                if (Math.random() < 0.25) {
+                    const angle = (Math.random() > 0.5 ? -1 : 1) * (Math.random() * 20);
+                    shape.style.transform = `rotate(${angle}deg)`;
+                }
+
+                background.appendChild(shape);
+            }
+        }
+
+        generateShapes();
+
+        setInterval(() => {
+            if (isSwitching) return;
+            isSwitching = true;
+            background.style.opacity = 0;
 
             setTimeout(() => {
-                heart.remove();
+                shapeType = shapeType === 'heart' ? 'star' : 'heart';
+                generateShapes();
+                background.style.opacity = 1;
+                isSwitching = false;
             }, 1000);
-
-            // перемещение кастомного курсора
-            const customCursor = document.getElementById('custom-cursor');
-            customCursor.style.left = `${e.clientX}px`;
-            customCursor.style.top = `${e.clientY}px`;
-        });
+        }, 3000);
     </script>
 </body>
 
