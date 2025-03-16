@@ -100,7 +100,6 @@
             box-shadow: 0 6px 14px rgba(247, 199, 214, 0.4);
         }
 
-        /* Дорога */
         .road {
             position: absolute;
             bottom: 80px;
@@ -111,7 +110,6 @@
             z-index: 1;
         }
 
-        /* Скейтборд */
         .skateboard {
             position: absolute;
             bottom: 90px;
@@ -139,41 +137,6 @@
         .wheel.right {
             right: 5px;
         }
-
-        @keyframes moveAndJump {
-            0% {
-                left: -100px;
-                bottom: 90px;
-                transform: rotate(0deg);
-            }
-            20% {
-                transform: rotate(-10deg);
-            }
-            25% {
-                bottom: 130px;
-                transform: rotate(-5deg);
-            }
-            30% {
-                bottom: 140px;
-                transform: rotate(5deg);
-            }
-            35% {
-                bottom: 120px;
-                transform: rotate(0deg);
-            }
-            50% {
-                transform: rotate(0deg);
-            }
-            100% {
-                left: 110%;
-                bottom: 90px;
-                transform: rotate(0deg);
-            }
-        }
-
-        .skateboard.animate {
-            animation: moveAndJump 6s linear infinite;
-        }
     </style>
 </head>
 
@@ -189,9 +152,8 @@
         <img src="" alt="Preview">
     </div>
 
-    <!-- Дорога и скейт -->
     <div class="road"></div>
-    <div class="skateboard animate">
+    <div class="skateboard" id="skateboard">
         <div class="wheel left"></div>
         <div class="wheel right"></div>
     </div>
@@ -207,6 +169,28 @@
             const overlay = document.querySelector('.overlay');
             overlay.classList.remove('active');
         }
+
+        const skateboard = document.getElementById('skateboard');
+        let direction = 1;
+        let posX = -100;
+
+        function randomJump() {
+            return Math.random() * 40 + 20;
+        }
+
+        function animateSkate() {
+            posX += direction * 3;
+            if (posX > window.innerWidth) direction = -1;
+            if (posX < -120) direction = 1;
+
+            const jump = Math.random() < 0.03 ? randomJump() : 0;
+            const rotate = jump > 0 ? (direction > 0 ? -10 : 10) : 0;
+
+            skateboard.style.transform = `translateX(${posX}px) translateY(${-jump}px) rotate(${rotate}deg)`;
+            requestAnimationFrame(animateSkate);
+        }
+
+        animateSkate();
     </script>
 </body>
 
