@@ -180,6 +180,44 @@
             top: 0;
             left: 0;
         }
+
+        /* След сердечек */
+        .cursor-heart {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f8c8dc;
+            transform: rotate(-45deg);
+            border-radius: 50% 50% 0 0;
+            pointer-events: none;
+            animation: fadeOut 1s forwards;
+            z-index: 999;
+        }
+
+        .cursor-heart::before,
+        .cursor-heart::after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f8c8dc;
+            border-radius: 50%;
+        }
+
+        .cursor-heart::before {
+            top: -5px;
+            left: 0;
+        }
+
+        .cursor-heart::after {
+            left: 5px;
+            top: 0;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0); }
+        }
     </style>
 </head>
 
@@ -266,7 +304,13 @@
                 isSwitching = false;
             }, 1000);
         }, 3000);
-    </script>
-</body>
 
-</html>
+        // След сердечек за мышкой
+        document.addEventListener('mousemove', (e) => {
+            const heart = document.createElement('div');
+            heart.classList.add('cursor-heart');
+            heart.style.left = `${e.clientX}px`;
+            heart.style.top = `${e.clientY}px`;
+            document.body.appendChild(heart);
+
+            set
