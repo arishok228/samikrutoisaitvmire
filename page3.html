@@ -4,20 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Третья страница</title>
+    <title>Третья страница с молниями</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             background: #f8f9fa;
-            overflow-x: hidden;
-            font-family: Arial, sans-serif;
+            overflow: hidden;
             position: relative;
-        }
-
-        h1 {
-            text-align: center;
-            margin: 20px 0;
+            font-family: Arial, sans-serif;
         }
 
         .small-image {
@@ -31,30 +26,8 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
-        }
-
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 999;
-        }
-
-        .overlay img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 10px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .overlay.active {
-            display: flex;
+            z-index: 2;
+            position: relative;
         }
 
         .description {
@@ -69,6 +42,8 @@
             border-radius: 12px;
             background-color: #fff;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            z-index: 2;
+            position: relative;
         }
 
         .button {
@@ -80,8 +55,12 @@
             border: 1px solid #f7c7d6;
             border-radius: 8px;
             transition: 0.3s ease;
-            margin-top: 30px;
+            margin: 30px auto;
             font-size: 20px;
+            display: block;
+            z-index: 2;
+            position: relative;
+            text-align: center;
         }
 
         .button:hover {
@@ -91,104 +70,121 @@
             box-shadow: 0 6px 14px rgba(247, 199, 214, 0.4);
         }
 
-        .lightning {
+        canvas {
             position: absolute;
-            width: 4px;
-            background: #f7c7d6;
-            height: 0;
             top: 0;
+            left: 0;
             z-index: 1;
         }
 
         .heart {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center/cover;
-            opacity: 0;
-            z-index: 1;
+            width: 15px;
+            height: 15px;
+            background: #f7c7d6;
+            transform: rotate(45deg);
+            animation: explode 1s forwards;
+            z-index: 3;
         }
 
-        @keyframes fall {
-            to { height: 100vh; }
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #f7c7d6;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -7px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: -7px;
+            top: 0;
         }
 
         @keyframes explode {
-            to {
-                transform: translate(var(--dx), var(--dy)) scale(0.5);
-                opacity: 0;
-            }
+            0% { opacity: 1; transform: translate(0, 0) scale(1); }
+            100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(0.5); }
         }
     </style>
 </head>
 
 <body>
-    <h1>Третья страница</h1>
+    <h1 style="text-align:center;">Третья страница</h1>
 
     <img src="photo_2025-03-15_19-35-01.jpg" class="small-image" onclick="showOverlay(this.src)">
-
-    <p class="description">Беллочка очень умная кошка и дошла до такой ступени эволюции , как человек.
-        На данной фотографии вы можете увидеть, как Беллочка развивает способность к прямохождению.
+    <p class="description">Беллочка очень умная кошка и дошла до такой ступени эволюции, как человек. На данной
+        фотографии вы можете увидеть, как Беллочка развивает способность к прямохождению.
     </p>
 
     <a href="index.html" class="button">Вернуться на главную</a>
 
-    <div class="overlay" onclick="hideOverlay()">
-        <img src="" alt="Preview">
-    </div>
+    <canvas id="lightningCanvas"></canvas>
 
     <script>
-        function showOverlay(src) {
-            const overlay = document.querySelector('.overlay');
-            overlay.querySelector('img').src = src;
-            overlay.classList.add('active');
+        const canvas = document.getElementById('lightningCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        function drawZigZagLightning(startX, startY, endY) {
+            let x = startX;
+            let y = startY;
+            const segments = [];
+            while (y < endY) {
+                let dx = (Math.random() - 0.5) * 40;
+                let dy = Math.random() * 20 + 20;
+                segments.push({ x: x + dx, y: y + dy });
+                x += dx;
+                y += dy;
+            }
+
+            ctx.strokeStyle = 'rgba(247, 199, 214, 0.9)';
+            ctx.lineWidth = 2;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = 'rgba(247, 199, 214, 0.7)';
+
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            segments.forEach(p => ctx.lineTo(p.x, p.y));
+            ctx.stroke();
+
+            return segments[segments.length - 1];
         }
 
-        function hideOverlay() {
-            const overlay = document.querySelector('.overlay');
-            overlay.classList.remove('active');
-        }
-
-        function createLightning() {
-            const lightning = document.createElement('div');
-            lightning.className = 'lightning';
-            lightning.style.left = Math.random() * window.innerWidth + 'px';
-            document.body.appendChild(lightning);
-
-            lightning.animate([
-                { height: '0' },
-                { height: '100vh' }
-            ], { duration: 500 });
-
-            setTimeout(() => {
-                explodeHearts(parseInt(lightning.style.left));
-                lightning.remove();
-            }, 500);
-        }
-
-        function explodeHearts(x) {
-            for (let i = 0; i < 12; i++) {
+        function createHearts(x, y) {
+            for (let i = 0; i < 10; i++) {
                 const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.style.left = `${x - 10 + Math.random() * 20}px`;
-                heart.style.top = 'calc(100vh - 10px)';
-                const dx = (Math.random() - 0.5) * 200 + 'px';
-                const dy = (Math.random() - 1) * 200 + 'px';
-                heart.style.setProperty('--dx', dx);
-                heart.style.setProperty('--dy', dy);
-
+                heart.classList.add('heart');
+                heart.style.left = `${x}px`;
+                heart.style.top = `${y}px`;
+                heart.style.setProperty('--x', `${(Math.random() - 0.5) * 200}px`);
+                heart.style.setProperty('--y', `${(Math.random() - 0.5) * 200}px`);
                 document.body.appendChild(heart);
-
-                heart.animate([
-                    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
-                    { transform: `translate(${dx}, ${dy}) scale(0.5)`, opacity: 0 }
-                ], { duration: 1000 });
 
                 setTimeout(() => heart.remove(), 1000);
             }
         }
 
-        setInterval(createLightning, 2000);
+        function lightningStrike() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let startX = Math.random() * canvas.width;
+            const endY = canvas.height - 50;
+            const endPoint = drawZigZagLightning(startX, 0, endY);
+            createHearts(endPoint.x, endPoint.y);
+        }
+
+        setInterval(lightningStrike, 2500);
     </script>
 </body>
 
