@@ -8,6 +8,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     background-color: #f8f9fa;
+    overflow: hidden;
 }
 
 h1 {
@@ -114,4 +115,42 @@ img {
 
 .show-ears .ears {
     opacity: 1;
+}
+
+/* === СЕРДЕЧКИ ЗА КУРСОРОМ === */
+.cursor-heart {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: #f8c8dc;
+    transform: rotate(-45deg);
+    border-radius: 50% 50% 0 0;
+    pointer-events: none;
+    animation: fadeOut 1s forwards;
+    z-index: 9999;
+}
+
+.cursor-heart::before,
+.cursor-heart::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #f8c8dc;
+    border-radius: 50%;
+}
+
+.cursor-heart::before {
+    top: -5px;
+    left: 0;
+}
+
+.cursor-heart::after {
+    left: 5px;
+    top: 0;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0); }
 }
