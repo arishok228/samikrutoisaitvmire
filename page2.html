@@ -86,7 +86,7 @@
             border: 1px solid #f7c7d6;
             border-radius: 8px;
             transition: 0.3s ease;
-            margin: 30px auto 50px auto;
+            margin: 30px auto;
             font-size: 20px;
             position: relative;
             z-index: 2;
@@ -103,7 +103,7 @@
 
         .road {
             position: absolute;
-            bottom: 30px;
+            bottom: 100px;
             left: 0;
             width: 100%;
             height: 10px;
@@ -113,7 +113,7 @@
 
         .skateboard {
             position: absolute;
-            bottom: 50px;
+            bottom: 115px;
             left: 0;
             width: 100px;
             height: 20px;
@@ -174,20 +174,21 @@
         const skateboard = document.getElementById('skateboard');
         let posX = 0;
         let direction = 1;
+
         let isJumping = false;
         let jumpVelocity = 0;
         let posY = 0;
 
-        const gravity = 0.6;
+        const gravity = 0.8;
         const groundY = 0;
-        const jumpStrength = 10;
+        const jumpStrength = 12;
 
         function updateSkateboard() {
             posX += direction * 2;
             if (posX > window.innerWidth - 100) direction = -1;
             if (posX < 0) direction = 1;
 
-            if (!isJumping && Math.random() < 0.007) {
+            if (!isJumping && Math.random() < 0.008) {
                 isJumping = true;
                 jumpVelocity = jumpStrength;
             }
@@ -196,7 +197,7 @@
                 posY += jumpVelocity;
                 jumpVelocity -= gravity;
 
-                let rotateDeg = direction === 1 ? -15 : 15;
+                let rotateDeg = direction === 1 ? -10 : 10;
                 let rotation = (jumpVelocity > 0) ? rotateDeg : -rotateDeg;
 
                 skateboard.style.transform = `translateX(${posX}px) translateY(${-posY}px) rotate(${rotation}deg)`;
