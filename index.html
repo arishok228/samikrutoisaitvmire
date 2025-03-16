@@ -7,6 +7,7 @@
     <title>Главная страница</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* Твой CSS как был */
         body {
             display: flex;
             flex-direction: column;
@@ -141,7 +142,6 @@
             transform-origin: center;
         }
 
-        /* Сердечко */
         .heart {
             width: 20px;
             height: 20px;
@@ -171,7 +171,6 @@
             top: 0;
         }
 
-        /* Звезда */
         .star::before {
             content: "★";
             position: absolute;
@@ -179,6 +178,36 @@
             font-size: 20px;
             top: 0;
             left: 0;
+        }
+
+        /* Эффект следа */
+        .trail-heart {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f8c8dc;
+            border-radius: 50%;
+            transform: rotate(-45deg);
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .trail-heart::before,
+        .trail-heart::after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f8c8dc;
+            border-radius: 50%;
+        }
+        .trail-heart::before {
+            top: -5px;
+            left: 0;
+        }
+        .trail-heart::after {
+            left: 5px;
+            top: 0;
         }
     </style>
 </head>
@@ -196,7 +225,7 @@
     <div class="background-shapes" id="background"></div>
 
     <script>
-        // Typewriter эффект
+        // Typewriter
         const text = "Данный сайт создан с целью познакомить вас с самой умной в мире кошкой Беллой. Белле уже 10 лет, ее айкью самый высокий в мире, а именно 1069 и она развила все сложнейшие навыки на высочайшем уровне. На последующих страницах вы сможете понаблюдать некоторые из них.";
         let i = 0;
         function typeWriter() {
@@ -215,50 +244,39 @@
             button.classList.add('circle-effect');
             let ears = document.createElement('div');
             ears.classList.add('ears');
-            ears.innerHTML = `
-                <div class="ear-left"></div>
-                <div class="ear-right"></div>
-            `;
+            ears.innerHTML = `<div class="ear-left"></div><div class="ear-right"></div>`;
             button.appendChild(ears);
             setTimeout(() => {
                 button.classList.add('show-ears');
             }, 100);
-
             setTimeout(() => {
                 window.location.href = url;
             }, 1200);
         }
 
-        // Фон сердечки/звездочки
+        // Фон
         const background = document.getElementById('background');
         let shapeType = 'heart';
         let isSwitching = false;
-
         function generateShapes() {
             background.innerHTML = '';
             for (let i = 0; i < 50; i++) {
                 const shape = document.createElement('div');
                 shape.classList.add('shape', shapeType);
-
                 shape.style.top = Math.random() * 100 + '%';
                 shape.style.left = Math.random() * 100 + '%';
-
                 if (Math.random() < 0.25) {
                     const angle = (Math.random() > 0.5 ? -1 : 1) * (Math.random() * 20);
                     shape.style.transform = `rotate(${angle}deg)`;
                 }
-
                 background.appendChild(shape);
             }
         }
-
         generateShapes();
-
         setInterval(() => {
             if (isSwitching) return;
             isSwitching = true;
             background.style.opacity = 0;
-
             setTimeout(() => {
                 shapeType = shapeType === 'heart' ? 'star' : 'heart';
                 generateShapes();
@@ -266,6 +284,18 @@
                 isSwitching = false;
             }, 1000);
         }, 3000);
+
+        // Эффект следа за курсором
+        document.addEventListener('mousemove', function (e) {
+            const heart = document.createElement('div');
+            heart.classList.add('trail-heart');
+            heart.style.left = e.pageX + 'px';
+            heart.style.top = e.pageY + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 700);
+        });
     </script>
 </body>
 
